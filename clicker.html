@@ -1,49 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Clicker Game</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin-top: 20px;
-        }
-        #count {
-            font-size: 24px;
-            margin-top: 20px;
-        }
-    </style>
+    <meta charset="UTF-8"> <!-- Устанавливаем кодировку документа -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Задаем настройки для масштабирования на мобильных устройствах -->
+    <title>Главная</title> <!-- Устанавливаем заголовок страницы -->
+    <link rel="stylesheet" href="styles.css"> <!-- Подключаем внешний CSS файл -->
 </head>
 <body>
-    <h1>Clicker Game</h1>
-    <button id="clickButton">Click me!</button>
-    <div id="count">Clicks: 0</div>
-
-    <script>
-        let count = 0;
-        const userId = new URLSearchParams(window.location.search).get('user_id');
-        document.getElementById('clickButton').addEventListener('click', () => {
-            count++;
-            document.getElementById('count').innerText = `Clicks: ${count}`;
-        });
-
-        window.addEventListener('beforeunload', () => {
-            fetch(`https://api.telegram.org/bot<6469687404:AAEX_go4bLMGEmAzS7GrYi_0qdtHjQmx6HU>/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: userId,
-                    text: `Вы натапали ${count} монет!`
-                })
-            });
-        });
-    </script>
+    <div class="container"> <!-- Основной контейнер страницы -->
+        <header class="header"> <!-- Шапка страницы -->
+            <div class="title" id="pageTitle">Главная</div> <!-- Заголовок страницы -->
+            <div class="rank">Ранг: 1</div> <!-- Отображение ранга пользователя -->
+            <div class="score" id="scoreValue">100</div> <!-- Отображение текущего счета -->
+            <div class="income" id="incomePerHour">Доход в час: 0</div> <!-- Отображение дохода в час -->
+            <img src="https://cdn-icons-png.flaticon.com/256/4285/4285906.png" alt="Монета" class="coin-icon" id="clickerButton"> <!-- Иконка монеты для кнопки клика -->
+            <div class="progress-bar-container"> <!-- Контейнер для прогресс-бара -->
+                <div class="progress-bar" id="progressBar"></div> <!-- Сам прогресс-бар -->
+            </div>
+            <div class="progress-status" id="progressStatus">5000/5000</div> <!-- Статус прогресса -->
+            <button class="button upgrade-button-main" id="navigateToIncome">Прокачать</button> <!-- Кнопка для перехода на страницу прокачки -->
+        </header>
+        <footer> <!-- Футер страницы -->
+            <div class="button-container"> <!-- Контейнер для кнопок навигации -->
+                <div class="button-wrapper"><button class="button" onclick="navigate('index.html')">Главная</button></div> <!-- Кнопка для перехода на главную страницу -->
+                <div class="button-wrapper"><button class="button" onclick="navigate('income.html')">Доход</button></div> <!-- Кнопка для перехода на страницу дохода -->
+                <div class="button-wrapper"><button class="button" onclick="navigate('tasks.html')">Задания</button></div> <!-- Кнопка для перехода на страницу заданий -->
+                <div class="button-wrapper"><button class="button" onclick="navigate('referrals.html')">Рефералы</button></div> <!-- Кнопка для перехода на страницу рефералов -->
+                <div class="button-wrapper"><button class="button" onclick="navigate('wallet.html')">Кошелек</button></div> <!-- Кнопка для перехода на страницу кошелька -->
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script> <!-- Подключаем внешний JavaScript файл -->
 </body>
 </html>
